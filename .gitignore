@@ -75,3 +75,9 @@ Old_Python_Code/
 # Coverage
 .coverage
 htmlcov/
+# Office / presentation files
+*.pptx
+*.docx
+
+# Optional PDFs
+# *.pdf
