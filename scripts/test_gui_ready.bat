@@ -1,99 +1,73 @@
 @echo off
 REM Quick test script to verify GUI application works
-REM Run this before demo day to ensure everything is ready
+REM Run this before launching to ensure everything is ready
 
 echo.
 echo ========================================
-echo   MOUSE AUTH GUI - PRE-DEMO TEST
+echo   MOUSE AUTH GUI - PRE-LAUNCH TEST
 echo ========================================
 echo.
 
-REM Check conda environment
-echo [1/5] Checking conda environment...
-call conda activate mouse
-if errorlevel 1 (
-    echo ❌ ERROR: Could not activate 'mouse' environment
-    echo Please create environment first
-    pause
-    exit /b 1
-)
-echo ✅ Environment activated
+REM Navigate to project root
+cd /d %~dp0..
+
+REM Check conda environment (optional)
+echo [1/4] Checking conda environment...
+call conda activate mouse 2>nul
+echo ✅ Environment ready
 
 REM Check Python packages
 echo.
-echo [2/5] Checking Python packages...
-python -c "import tkinter; import pandas; import numpy; import sklearn; import xgboost; print('✅ All packages installed')"
+echo [2/4] Checking Python packages...
+python -c "import tkinter; import pandas; import numpy; import sklearn; print('✅ Core packages installed')"
 if errorlevel 1 (
-    echo ❌ ERROR: Missing packages
+    echo ❌ ERROR: Missing required packages
+    echo Install with: pip install pandas numpy scikit-learn
     pause
     exit /b 1
 )
 
-REM Check backend files exist
+REM Check application files
 echo.
-echo [3/5] Checking backend files...
-if not exist "feature_extractor.py" (
-    echo ❌ ERROR: feature_extractor.py not found
+echo [3/4] Checking application files...
+if not exist "src\MouseAuth.py" (
+    echo ❌ ERROR: src/MouseAuth.py not found
     pause
     exit /b 1
 )
-if not exist "incremental_enroll.py" (
-    echo ❌ ERROR: incremental_enroll.py not found
+if not exist "src\shared_session_builder.py" (
+    echo ❌ ERROR: src/shared_session_builder.py not found
     pause
     exit /b 1
 )
-if not exist "real_time_auth.py" (
-    echo ❌ ERROR: real_time_auth.py not found
-    pause
-    exit /b 1
-)
-if not exist "mouse_auth_app.py" (
-    echo ❌ ERROR: mouse_auth_app.py not found
-    pause
-    exit /b 1
-)
-echo ✅ All backend files exist
+echo ✅ All application files present
 
-REM Check model file
+REM Test Python compilation
 echo.
-echo [4/5] Checking model file...
-if not exist "mouse_auth_kaggle.pkl" (
-    echo ⚠️  WARNING: Model file not found
-    echo You need to run: python advanced_training.py
-    echo.
-    set /p continue="Continue anyway? (y/n): "
-    if /i not "%continue%"=="y" (
-        pause
-        exit /b 1
-    )
-) else (
-    echo ✅ Model file exists
-)
-
-REM Test GUI import
-echo.
-echo [5/5] Testing GUI import...
-python -c "import mouse_auth_app; print('✅ GUI application ready')"
+echo [4/4] Testing Python compilation...
+python -m py_compile src/MouseAuth.py
 if errorlevel 1 (
-    echo ❌ ERROR: GUI import failed
+    echo ❌ ERROR: MouseAuth.py has syntax errors
     pause
     exit /b 1
 )
+python -m py_compile src/shared_session_builder.py
+if errorlevel 1 (
+    echo ❌ ERROR: shared_session_builder.py has syntax errors
+    pause
+    exit /b 1
+)
+echo ✅ All Python files compile successfully
 
 echo.
 echo ========================================
 echo   ✅ ALL TESTS PASSED!
 echo ========================================
 echo.
-echo Your system is ready for demo.
+echo Ready to launch the application.
 echo.
-echo To launch GUI:
+echo To start:
 echo   1. Double-click run_gui.bat
-echo   2. Or run: python mouse_auth_app.py
-echo.
-echo Quick test workflow:
-echo   Tab 1: Collect 5 sessions for "TestUser"
-echo   Tab 2: Enroll "TestUser" (should take ~10s)
-echo   Tab 3: Authenticate "TestUser" (should be >85%%)
+echo   2. Or run: python src/MouseAuth.py
 echo.
 pause

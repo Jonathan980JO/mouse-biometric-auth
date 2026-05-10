@@ -10,10 +10,13 @@ echo.
 echo Starting application...
 echo.
 
-REM Activate conda environment
-call conda activate mouse
+REM Navigate to project root
+cd /d %~dp0..
 
-REM Run the Quick Authentication
-python quick_auth.py
+REM Activate conda environment (optional)
+call conda activate mouse 2>nul
+
+REM Run the main GUI application
+python src/MouseAuth.py
 
 pause
