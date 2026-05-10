@@ -81,3 +81,5 @@ htmlcov/
 
 # Optional PDFs
 *.pdf
+
+Docs/
