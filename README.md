@@ -1,30 +1,41 @@
 # Mouse Dynamics Authentication System
 
-A behavioral biometric authentication system that identifies users through their unique mouse movement patterns using machine learning and session-based analysis.
+<p align="center">
+  <img src="assets/banner.png" alt="Mouse Dynamics Authentication Banner"/>
+</p>
 
-## Application Preview
+<p align="center">
+Behavioral biometric authentication using mouse movement dynamics and machine learning.
+</p>
 
-![GUI Preview](assets/gui-preview.png)
+---
+
+## Overview
+
+This project explores behavioral biometrics by identifying users through their unique mouse movement patterns.  
+The system analyzes session-based mouse activity, extracts behavioral features, and applies machine learning models for authentication and anomaly detection.
+
+---
 
 ## Features
 
-- **Behavioral Biometric Authentication**
-  - Identifies users through unique mouse movement patterns
+- Behavioral biometric authentication
+- Session-based mouse activity analysis
+- Machine learning authentication pipeline
+- Confidence and anomaly detection
+- GUI application for training and testing
+- Chunk-based session validation
+- Anti-cheating integrity validation
 
-- **Session-Based Analysis**
-  - Builds robust feature vectors from grouped mouse activity sessions
+---
 
-- **Machine Learning Pipeline**
-  - RandomForest-based authentication with optional XGBoost support
+## Application Preview
 
-- **GUI Application**
-  - Desktop interface for data collection, training, and authentication testing
+<p align="center">
+  <img src="assets/gui-preview.png" width="850"/>
+</p>
 
-- **Confidence & Anomaly Detection**
-  - Detects imposters, inconsistent behavior, and uncertain sessions
-
-- **Anti-Cheating Validation**
-  - Includes integrity checks against hardcoded thresholds and synthetic manipulation
+---
 
 ## Project Structure
 
@@ -40,6 +51,7 @@ scripts/
   └── test_gui_ready.bat
 
 assets/
+  ├── banner.png
   └── gui-preview.png
 
 data/
@@ -47,9 +59,11 @@ models/
 logs/
 ```
 
+---
+
 ## Installation
 
-### Prerequisites
+### Requirements
 
 - Python 3.7+
 - Windows / Linux / macOS
@@ -66,66 +80,65 @@ Or manually:
 pip install pandas numpy scikit-learn scipy xgboost
 ```
 
+---
+
 ## Usage
 
-### Launch GUI Application
+### Launch GUI
 
-**Windows**
-```bash
-scripts\run_gui.bat
-```
-
-**Command Line**
 ```bash
 python src/MouseAuth.py
 ```
 
-## Training Workflow
+### Windows Shortcut
 
-1. Launch the application
-2. Load or collect mouse session data
-3. Train the authentication model
-4. Save the trained model locally
+```bash
+scripts\run_gui.bat
+```
+
+---
 
 ## Authentication Workflow
 
-1. Launch the application
-2. Select a user session
-3. Perform authentication analysis
-4. Review:
-   - Confidence score
-   - Session analysis
-   - Authentication result
+1. Collect or load mouse session data
+2. Build session-based feature vectors
+3. Train the authentication model
+4. Analyze authentication sessions
+5. Review confidence and anomaly results
+
+---
 
 ## How It Works
 
-### Feature Extraction
+### Behavioral Feature Extraction
 
-Mouse events are converted into behavioral biometric features such as:
+The system extracts behavioral metrics from mouse activity including:
 
 - Speed
 - Acceleration
 - Jerk
-- Angle changes
+- Angle variation
 - Curvature
 - Path efficiency
 - Click timing behavior
 - Final movement approach patterns
 
-### Session Vector Building
+### Session Analysis
 
-- 40 mouse samples are grouped into sessions
+- Mouse samples are grouped into sessions
 - Sessions are divided into ordered chunks
-- Global and chunk-level statistics are extracted
-- Feature vectors are used for machine learning classification
+- Statistical behavioral features are extracted
+- Feature vectors are passed into ML classifiers
 
 ### Authentication Logic
 
 The system:
-- Trains on user-labeled mouse sessions
-- Predicts user identity using behavioral patterns
-- Detects anomalies and inconsistent behavior
+- Learns user-specific behavioral patterns
+- Predicts identity using mouse dynamics
+- Detects anomalies and inconsistent sessions
 - Aggregates chunk-based voting for stability
+
+---
 
 ## Technologies Used
 
@@ -137,13 +150,17 @@ The system:
 - scipy
 - xgboost
 
-## Privacy Notice
+---
 
-Biometric datasets, trained models, logs, and local project documentation are excluded from GitHub using `.gitignore` for privacy and repository cleanliness.
+## Privacy & Security
+
+Biometric datasets, trained models, logs, and local documentation are excluded using `.gitignore` to maintain privacy and repository cleanliness.
+
+---
 
 ## Development
 
-### Run Pre-Launch Tests
+### Run Validation Tests
 
 ```bash
 scripts\test_gui_ready.bat
@@ -157,11 +174,15 @@ python -m py_compile src/shared_session_builder.py
 python -m py_compile src/train_improved.py
 ```
 
+---
+
 ## Notes
 
-- The project uses a shared session-vector pipeline to keep training and authentication behavior consistent.
-- Local datasets and trained models are intentionally not uploaded to GitHub.
-- The repository structure was cleaned and reorganized for maintainability and scalability.
+- Uses a shared session-vector pipeline for consistent training and authentication behavior
+- Local datasets and trained models are intentionally excluded from GitHub
+- Repository structure was reorganized for maintainability and scalability
+
+---
 
 ## License
 
