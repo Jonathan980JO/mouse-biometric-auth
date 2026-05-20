@@ -110,6 +110,10 @@ scripts\run_gui.bat
 
 ## How It Works
 
+<p align="center">
+  <img src="assets/pipeline.png" width="1000"/>
+</p>
+
 ### Behavioral Feature Extraction
 
 The system extracts behavioral metrics from mouse activity including:
